@@ -1,7 +1,7 @@
 {
   "name": "tasoft/value-storage",
   "license": "MIT",
-  "minimum-stability": "dev",
+  "minimum-stability": "stable",
   "authors": [
     {
       "name": "Thomas Abplanalp",
