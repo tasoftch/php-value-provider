@@ -25,13 +25,20 @@ namespace TASoft\Util;
 
 
 use ArrayAccess;
+use ArrayIterator;
 use Countable;
+use IteratorAggregate;
 use TASoft\Util\Value\ValueInterface;
 use TASoft\Util\Value\ValuesInterface;
 
-class ValueStorage implements ArrayAccess, Countable
+class ValueStorage implements ArrayAccess, Countable, IteratorAggregate
 {
 	private $values = [];
+
+	public function getIterator()
+	{
+		return new ArrayIterator($this->values);
+	}
 
 	/**
 	 * ValueProvider constructor.
