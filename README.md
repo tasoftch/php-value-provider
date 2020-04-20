@@ -12,9 +12,9 @@ The value storage can be used like a simple array.
 In addition, it accepts values with a specific characteristic: They are resolvable on demand.
 ```php
 <?php
-use TASoft\Util\ValueProvider;
+use TASoft\Util\ValueStorage;
 
-$vp = new ValueProvider(["value1" => 23]);
+$vp = new ValueStorage(["value1" => 23]);
 $vp->value2 = 44;
 $vp["value3"] = 'Hello World';
 
@@ -26,9 +26,9 @@ This behaviour is not yet special.
 But take a look at this:
 ```php
 <?php
-use TASoft\Util\ValueProvider;
+use TASoft\Util\ValueStorage;
 
-$vp = new ValueProvider(["test" => $func1 = function() { return 23; }]);
+$vp = new ValueStorage(["test" => $func1 = function() { return 23; }]);
 // or
 $vp["other-test"] = $func2 = function() { return "Hello World"; };
 

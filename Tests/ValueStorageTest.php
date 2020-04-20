@@ -33,18 +33,18 @@ namespace TASoft\Util\Test;
 use PHPUnit\Framework\TestCase;
 use TASoft\Util\Test\Mock\MockValue;
 use TASoft\Util\Test\Mock\MockValues;
-use TASoft\Util\ValueProvider;
+use TASoft\Util\ValueStorage;
 
-class ValueProviderTest extends TestCase
+class ValueStorageTest extends TestCase
 {
 	public function testEmptyProvider() {
-		$p = new ValueProvider();
+		$p = new ValueStorage();
 
 		$this->assertCount(0, $p);
 	}
 
 	public function testScalarValues() {
-		$p = new ValueProvider();
+		$p = new ValueStorage();
 		$p->test = 23;
 		$p["other-test"] = "Hello World";
 
@@ -58,7 +58,7 @@ class ValueProviderTest extends TestCase
 	}
 
 	public function testValuesConstructor() {
-		$p = new ValueProvider([
+		$p = new ValueStorage([
 			'test' => 88,
 			'other-test' => 'Hello World'
 		]);
@@ -69,7 +69,7 @@ class ValueProviderTest extends TestCase
 	}
 
 	public function testExistingValues() {
-		$p = new ValueProvider([
+		$p = new ValueStorage([
 			'test' => 88,
 			'other-test' => 'Hello World'
 		]);
@@ -79,7 +79,7 @@ class ValueProviderTest extends TestCase
 	}
 
 	public function testRemovingValues() {
-		$p = new ValueProvider([
+		$p = new ValueStorage([
 			'test' => 88,
 			'other-test' => 'Hello World'
 		]);
@@ -97,21 +97,21 @@ class ValueProviderTest extends TestCase
 	}
 
 	public function testCallableStorage() {
-		$p = new ValueProvider();
+		$p = new ValueStorage();
 		$func = function() { return 22; };
 
 		$p->test = $func;
 		$this->assertSame($func, $p->test);
 		$this->assertSame(22, $p["test"]);
 
-		$p = new ValueProvider([
+		$p = new ValueStorage([
 			'test' => $func
 		]);
 
 		$this->assertSame($func, $p->test);
 		$this->assertSame(22, $p["test"]);
 
-		$p = new ValueProvider();
+		$p = new ValueStorage();
 		$p["test"] = $func;
 
 		$this->assertSame($func, $p->test);
@@ -119,21 +119,21 @@ class ValueProviderTest extends TestCase
 	}
 
 	public function testValueObjectStorage() {
-		$p = new ValueProvider();
+		$p = new ValueStorage();
 		$value = new MockValue(22);
 
 		$p->test = $value;
 		$this->assertSame($value, $p->test);
 		$this->assertSame(22, $p["test"]);
 
-		$p = new ValueProvider([
+		$p = new ValueStorage([
 			'test' => $value
 		]);
 
 		$this->assertSame($value, $p->test);
 		$this->assertSame(22, $p["test"]);
 
-		$p = new ValueProvider();
+		$p = new ValueStorage();
 		$p["test"] = $value;
 
 		$this->assertSame($value, $p->test);
@@ -141,7 +141,7 @@ class ValueProviderTest extends TestCase
 	}
 
 	public function testValuesObjectStorage() {
-		$p = new ValueProvider();
+		$p = new ValueStorage();
 		$values = new MockValues();
 
 		$values->values = [
@@ -153,14 +153,14 @@ class ValueProviderTest extends TestCase
 		$this->assertSame(22, $p->test);
 		$this->assertSame(88, $p["other-test"]);
 
-		$p = new ValueProvider([
+		$p = new ValueStorage([
 			$values
 		]);
 
 		$this->assertSame(22, $p->test);
 		$this->assertSame(88, $p["other-test"]);
 
-		$p = new ValueProvider();
+		$p = new ValueStorage();
 		$p["test"] = $values;
 
 		$this->assertSame(22, $p->test);

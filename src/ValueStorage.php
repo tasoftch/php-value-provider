@@ -29,7 +29,7 @@ use Countable;
 use TASoft\Util\Value\ValueInterface;
 use TASoft\Util\Value\ValuesInterface;
 
-class ValueProvider implements ArrayAccess, Countable
+class ValueStorage implements ArrayAccess, Countable
 {
 	private $values = [];
 
